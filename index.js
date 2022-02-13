@@ -18,7 +18,7 @@ let dones = []
 let hrs,mns,scs
 
 const hashStr = str => {
-  let h1 = 0xdeadbeef, h2 = 0x41c6ce57+n;
+  let h1 = 0xdeadbeef, h2 = 0x41c6ce57+n+day;
   for (let i = 0, ch; i < str.length; i++) {
     ch = str.charCodeAt(i);
     h1 = Math.imul(h1 ^ ch, 2654435761);
