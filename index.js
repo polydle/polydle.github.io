@@ -3,15 +3,20 @@ const allowed = new Set(("aahed aalii aargh aarti abaca abaci abacs abaft abaka 
 const answers = answerstr.split(" ")
 
 let won = false
+let rand = false
 const search = window.location.search
 let n = parseInt(search.substring(1))
 if (search.length && (isNaN(n) || n < 1 || n > 2315)) {
-  if (isNaN(n) || n > 1) {
+  if (isNaN(n) || n === 0) {
     window.location.search = "?1"
-    n = 1
+  } else if (n < 0) {
+    if (n < -2315) {
+      window.location.search = "?-2315"
+    }
+    n = -n
+    rand = true
   } else {
     window.location.search = "?2315"
-    n = 2315
   }
 }
 let lind = 0
@@ -38,20 +43,22 @@ const hashStr = str => {
 const setDailyWords = () => {
   answers.sort((i,j) => hashStr(i)-hashStr(j))
   words = answers.slice(0,n)
+  setUp()
 }
 
 const setRandWords = () => {
   words = []
   for (let i = 0; i < n; i++) {
     let word = answers[Math.floor(Math.random()*answers.length)]
-    while (words.contains(word)) {
+    while (words.includes(word)) {
       word = answers[Math.floor(Math.random()*answers.length)]
     }
     words.push(word)
   }
+  setUp()
 }
 
-const setUp = () => {
+const setWordsUp = () => {
   wordds = []
   dones = []
   for (let i = 0; i < n; i++) {
@@ -114,25 +121,43 @@ const pad = (s,i) => {
   return s
 }
 
+const rowsBefore = s => (
+  s.split("").map(c => (
+  `<div class="pie">
+    <h2>${c.toUpperCase()}</h2>
+  </div>`
+  )).join("\n")
+)
+
 const setNonN = () => {
+  n = 0
+  document.getElementById("start-page").style.display = "flex"
+  // const title2 = document.getElementById("title2")
+  // title2.innerHTML = `DAILY POLYDLES #${pad(day.toString(),4)}`
   const title = document.getElementById("title")
-  title.innerHTML = `DAILY POLYDLES #${pad(day.toString(),4)}`
-  const f = n === 1 ? one : n === 2 ? two : threeAndUp
+  title.innerHTML = ""
+  const top = document.getElementById("s-0")
+  top.innerHTML = ""
   const row1 = document.getElementById("row1")
-  row1.innerHTML = f("qwertyuiop")
+  row1.innerHTML = ""
   const row2 = document.getElementById("row2")
-  row2.innerHTML = f("asdfghjkl")
+  row2.innerHTML = ""
   const row3 = document.getElementById("row3")
-  row3.innerHTML = (
-    `<div class="pie" onclick="presskey('Delete')"><h2>⌫</h2></div>\n`
-    +f("zxcvbnm")
-    +`\n<div class="pie" onclick="presskey('Enter')"><h2>⏎</h2></div>`
-  )
+  row3.innerHTML = ""
+}
+
+const submitN = (daily=true) => {
+  n = parseInt(document.getElementById("ninput").value)
+  if (isNaN(n) || n < 1 || n > 2315) {
+    return false
+  }
+  window.location.search = "?"+(daily ? "" : "-")+n
 }
 
 const setN = () => {
+  document.getElementById("start-page").style.display = "none"
   const title = document.getElementById("title")
-  title.innerHTML = `DAILY ${n}-DLE #${pad(day.toString(),4)}`
+  title.innerHTML = `${rand ? "RANDOM" : "DAILY"} ${n}-DLE${rand ? "" : ` #${pad(day.toString(),4)}`}`
   const top = document.getElementById("s-0")
   top.innerHTML = getSectionString(0)
   const f = n === 1 ? one : n === 2 ? two : threeAndUp
@@ -146,6 +171,7 @@ const setN = () => {
     +f("zxcvbnm")
     +`\n<div class="pie" onclick="presskey('Enter')"><h2>⏎</h2></div>`
   )
+  return true
 }
 
 const setTime = () => {
@@ -204,11 +230,17 @@ const addSection = () => {
   lind = 0
   if (dones.every(b=>!!b)) {
     won = true
-    setInterval(setTime,100)
+    if (!rand) {
+      setInterval(setTime,100)
+    }
     const keyboard = document.getElementById("keyboard")
     keyboard.style.display = "none"
     const winbox = document.getElementById("win")
     winbox.style.display = "flex"
+    if (rand) {
+      const timer = document.getElementById("time")
+      timer.style.display = "none"
+    }
   } else {
     const container = document.getElementById("container")
     container.innerHTML += `<div id="s-${wind}" class="section">${getSectionString(wind)}</div>`
@@ -273,7 +305,8 @@ const presskey = c => {
 
 const copy = () => {
   const aux = document.createElement("textarea");
-  let s = `Daily ${n}-dle #${pad(day.toString(),4)}\n${dones.join("&")}\npolydle.github.io/?${n}\n\n`
+  let s = `${rand ? "Random" : "Daily"} ${n}-dle${rand ? "" : ` #${pad(day.toString(),4)}`}
+${Math.max(...dones)} : ${dones.join("&")}\npolydle.github.io/?${rand ? "-" : ""}${n}\n\n`
   for (let i = 0; i < n; i++) {
     let k = 0
     let allgreen = false
@@ -313,19 +346,8 @@ const checkMobile = () => {
   return check;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (checkMobile()) {
-    document.documentElement.style.setProperty('--box-width', 'calc(calc(98vw / 10) - 2px)');
-    document.documentElement.style.setProperty('--text-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.66)');
-    // document.getElementById("title").style.marginTop = "30px"
-    const container = document.getElementById("container")
-    container.style.maxWidth = "98vw"
-    container.style.height = "calc(75vh - calc(calc(calc(var(--box-width) + 2px) * 3) + 80px))"
-  }
-  setN()
-  setDailyWords()
-  setUp()
-  setTime()
+const setUp = () => {
+  setWordsUp()
 
   document.addEventListener("keydown", event => {
     if (won) {
@@ -341,4 +363,26 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault()
     presskey(c)
   })
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (checkMobile()) {
+    document.documentElement.style.setProperty('--box-width', 'calc(calc(98vw / 10) - 2px)');
+    document.documentElement.style.setProperty('--text-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.66)');
+    // document.getElementById("title").style.marginTop = "30px"
+    const container = document.getElementById("container")
+    container.style.maxWidth = "98vw"
+    container.style.height = "calc(75vh - calc(calc(calc(var(--box-width) + 2px) * 3) + 80px))"
+  }
+  setTime()
+  if (search.length) {
+    setN()
+    if (rand) {
+      setRandWords()
+    } else {
+      setDailyWords()
+    }
+  } else {
+    setNonN()
+  }
 })

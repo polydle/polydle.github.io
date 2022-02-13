@@ -208,7 +208,7 @@ body {
   cursor: pointer;
 }
 
-#title {
+#title, #title2 {
   display: flex;
   margin: 0 auto 0 auto;
   width: max-content;
@@ -218,7 +218,92 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#title2 {
+  font-size: calc(var(--text-font-size) * 2);
+  margin-bottom: 10px;
+}
+
+#title {
   transform: translate(0,calc(var(--box-width) * 0.12));
+}
+
+.subtitle {
+  display: flex;
+  margin: 0 auto 0 auto;
+  width: max-content;
+  /* height: calc(var(--box-width) * 1.25); */
+  font-size: calc(var(--text-font-size) * 0.7);
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  display: inline;
+  color: white;
+}
+
+#start-page {
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  height: 100vw;
+  top: 0%;
+  left: 0%;
+  font-size: var(--text-font-size);
+  background-color: black;
+  color: white;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#inputdiv {
+  display: flex;
+  background-color: black;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  color: white;
+  font-size: calc(var(--text-font-size) * 0.57);
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#ninput {
+  background-color: black;
+  padding-left: 6px;
+  margin-left: 15px;
+  font-family: 'Outfit', sans-serif;
+  border: thin solid white;
+  width: 60px;
+  font-size: calc(var(--text-font-size) * 0.57);
+  color: white;
+}
+
+.buttondiv {
+  display: flex;
+  cursor: pointer;
+  background-color: var(--green);
+  margin-top: 18px;
+  width: calc(var(--box-width) * 6.3);
+  height: calc(var(--box-width) * 1.3);
+  color: black;
+  font-size: calc(var(--text-font-size) * 1.04);
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottombutton {
+  background-color: var(--yellow);
 }
 
 :root {

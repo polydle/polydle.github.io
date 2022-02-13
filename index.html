@@ -19,7 +19,20 @@
   </head>
   <body>
     <script src="index.js"></script>
-    <div id="title">N-DLE #</div>
+    <div id="title">DAILY N-DLE #</div>
+    <div id="start-page">
+      <div id="title2" class="title-page">POLYDLE</div>
+      <div class="subdiv">
+        <!-- <div class="subtitle">©2022 Jack Boettcher</div> -->
+        <div class="subtitle"><p>Based on <a href="https://quordle.com" target="_blank">Quordle</a> by Freddie Meyer</p></div>
+      </div>
+      <div id="inputdiv">
+        <div>How many words? (1-2315)</div>
+        <input id="ninput" type="number" value="3" min="1" max="2315">
+      </div>
+      <div class="buttondiv" onclick="submitN()">Daily Polydle</div>
+      <div class="buttondiv bottombutton" onclick="submitN(false)">Random Polydle</div>
+    </div>
     <div id="container">
       <div id="s-0" class="section"></div>
     </div>
