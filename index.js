@@ -37,10 +37,7 @@ const hashStr = str => {
 
 const setDailyWords = () => {
   answers.sort((i,j) => hashStr(i)-hashStr(j))
-  words = []
-  for (let i = 0; i < n; i++) {
-    words.push(answers[day*n+i])
-  }
+  words = answers.slice(0,n)
 }
 
 const setRandWords = () => {
@@ -115,6 +112,22 @@ const pad = (s,i) => {
     s = "0"+s
   }
   return s
+}
+
+const setNonN = () => {
+  const title = document.getElementById("title")
+  title.innerHTML = `DAILY POLYDLES #${pad(day.toString(),4)}`
+  const f = n === 1 ? one : n === 2 ? two : threeAndUp
+  const row1 = document.getElementById("row1")
+  row1.innerHTML = f("qwertyuiop")
+  const row2 = document.getElementById("row2")
+  row2.innerHTML = f("asdfghjkl")
+  const row3 = document.getElementById("row3")
+  row3.innerHTML = (
+    `<div class="pie" onclick="presskey('Delete')"><h2>⌫</h2></div>\n`
+    +f("zxcvbnm")
+    +`\n<div class="pie" onclick="presskey('Enter')"><h2>⏎</h2></div>`
+  )
 }
 
 const setN = () => {
