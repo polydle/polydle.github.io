@@ -3,10 +3,16 @@ const allowed = new Set(("aahed aalii aargh aarti abaca abaci abacs abaft abaka 
 const answers = answerstr.split(" ")
 
 let won = false
-let n = parseInt(window.location.search.substring(1))
-if (isNaN(n) || n < 1) {
-  window.location.search = "?1"
-  n = 1
+const search = window.location.search
+let n = parseInt(search.substring(1))
+if (search.length && (isNaN(n) || n < 1 || n > 2315)) {
+  if (isNaN(n) || n > 1) {
+    window.location.search = "?1"
+    n = 1
+  } else {
+    window.location.search = "?2315"
+    n = 2315
+  }
 }
 let lind = 0
 let wind = 0
