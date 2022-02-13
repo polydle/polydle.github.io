@@ -1,0 +1,232 @@
+body {
+  font-family: 'Outfit', sans-serif;
+  margin: 0;
+  background-color: black;
+}
+
+#container {
+  /* position: fixed; */
+  visibility: visible;
+  /* padding: 40px; */
+  margin: 0 auto 0 auto;
+  width: max-content;
+  max-width: 80vw;
+  height: calc(100vh - calc(calc(calc(var(--box-width) + 2px) * 3) + 60px));
+  overflow-x: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 2px solid black;
+}
+
+.section {
+  visibility: visible;
+  margin: 0;
+  /* width: auto; */
+  /* padding: 40px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#s-0 {
+  margin: var(--btwn-words) 0 0 0;
+}
+
+.letter {
+  display: flex;
+  background-color: white;
+  cursor: default;
+  width: var(--box-width);
+  height: var(--box-width);
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-font-size);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 2px solid black;
+  margin: var(--btwn-letters);
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.letter.green {
+  background-color: var(--green);
+}
+
+.letter.yellow {
+  background-color: var(--yellow);
+}
+
+.letter.red {
+  color: red;
+}
+
+.word {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 var(--btwn-words) 0 0;
+}
+
+.first {
+  padding: 0 var(--btwn-words) 0 var(--btwn-words);
+}
+
+#keyboard {
+  /* position: fixed; */
+  visibility: visible;
+  /* padding: 40px; */
+  margin: 0 auto 0 auto;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  visibility: visible;
+  margin: 0;
+  /* width: auto; */
+  /* padding: 40px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pie {
+  touch-action: manipulation;
+  background-color: white;
+  position: relative;
+  width: var(--box-width);
+  height: var(--box-width);
+  overflow: hidden;
+  cursor: default;
+  text-align: center;
+  /* font-size: var(--text-font-size); */
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 2px solid black;
+  margin: var(--btwn-letters);
+}
+
+.pie > h2 {
+  pointer-events: none;
+  cursor: default;
+  margin: 0;
+  position: absolute;
+  font-size: calc(var(--text-font-size) * 0.8);
+  font-weight: normal;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.pie > .circle {
+  pointer-events: none;
+  position: absolute;
+  border: none;
+  width: 100%;
+  height: 100%;
+  left: 50%;
+  bottom: 50%;
+  transform-origin: bottom left;
+}
+
+.pie > .left {
+  pointer-events: none;
+  position: absolute;
+  border: none;
+  width: 50%;
+  height: 100%;
+  left: 0%;
+  bottom: 0%;
+}
+
+.pie > .right {
+  pointer-events: none;
+  position: absolute;
+  border: none;
+  width: 50%;
+  height: 100%;
+  left: 50%;
+  bottom: 0%;
+}
+
+.key.gray {
+  background-color: var(--gray);
+}
+
+.key.yellow {
+  background-color: var(--yellow);
+}
+
+.key.green {
+  background-color: var(--green);
+}
+
+#win {
+  display: none;
+  /* visibility: hidden; */
+  margin: 0 auto 0 auto;
+  width: max-content;
+  height: calc(calc(var(--box-width) + 2px) * 3);
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  /* padding-bottom: 20px; */
+}
+
+#win > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 12px 0 12px;
+  width: auto;
+  height: calc(var(--box-width) * 1.45);
+  color: white;
+  font-size: var(--text-font-size);
+}
+
+#share {
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+#title {
+  display: flex;
+  margin: 0 auto 0 auto;
+  width: max-content;
+  height: calc(var(--box-width) * 1.25);
+  font-size: var(--text-font-size);
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translate(0,calc(var(--box-width) * 0.12));
+}
+
+:root {
+  --green: #0c8;
+  --yellow: #fc0;
+  --gray: #888;
+  --btwn-letters: 1px;
+  --btwn-words: 4px;
+  --box-width: 48px;
+  --text-font-size: 36px;
+}
