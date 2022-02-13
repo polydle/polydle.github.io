@@ -189,7 +189,7 @@ const setTime = () => {
     hrs = hrs2
     mns = mns2
     scs = scs2
-    time.innerHTML = "NEXT POLYDLES IN "+hrs+":"+pad(mns,2)+":"+pad(scs,2)
+    time.innerHTML = "NEXT POLYDLE IN "+hrs+":"+pad(mns,2)+":"+pad(scs,2)
   }
 }
 
