@@ -139,7 +139,7 @@ const setTime = () => {
     hrs = hrs2
     mns = mns2
     scs = scs2
-    time.innerHTML = "NEXT N-DLES IN "+hrs+":"+pad(mns,2)+":"+pad(scs,2)
+    time.innerHTML = "NEXT POLYDLES IN "+hrs+":"+pad(mns,2)+":"+pad(scs,2)
   }
 }
 
@@ -254,7 +254,7 @@ const presskey = c => {
 
 const copy = () => {
   const aux = document.createElement("textarea");
-  let s = `Daily ${n}-dle #${pad(day.toString(),4)}\n${dones.join("&")}\njchboettcher.github.io/n-dle/?${n}\n\n`
+  let s = `Daily ${n}-dle #${pad(day.toString(),4)}\n${dones.join("&")}\npolydle.github.io/?${n}\n\n`
   for (let i = 0; i < n; i++) {
     let k = 0
     let allgreen = false
