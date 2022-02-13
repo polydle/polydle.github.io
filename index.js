@@ -144,6 +144,11 @@ const setNonN = () => {
   row2.innerHTML = ""
   const row3 = document.getElementById("row3")
   row3.innerHTML = ""
+  document.getElementById("ninput").addEventListener("keypress", e => {
+    if (e.key === "Enter") {
+      submitN()
+    }
+  })
 }
 
 const submitN = (daily=true) => {
@@ -247,7 +252,7 @@ const addSection = () => {
   }
 }
 
-const presskey = c => {
+const presskey = (c,save=true) => {
   if (won) {
     return
   }
@@ -262,6 +267,10 @@ const presskey = c => {
       if (lind === 5) {
         if (allowed.has(word.toLowerCase())) {
           addSection()
+          if (save && !rand) {
+            const currsaved = window.localStorage.getItem(`saved-${n}`)
+            window.localStorage.setItem(`saved-${n}`,currsaved+word+",")
+          }
         }
       }
     } else if ("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM".split("").includes(c)) {
@@ -363,6 +372,23 @@ const setUp = () => {
     event.preventDefault()
     presskey(c)
   })
+  if (!rand) {
+    const prevday = window.localStorage.getItem("prevday")
+    if (parseInt(prevday) !== day) {
+      window.localStorage.setItem("prevday",day)
+      window.localStorage.setItem(`saved-${n}`,"")
+    } else {
+      const savedstr = window.localStorage.getItem(`saved-${n}`)
+      if (!!savedstr) {
+        for (let c of savedstr.split("")) {
+          presskey(c === "," ? "Enter" : c,false)
+        }
+      }
+    }
+    if (!window.localStorage.getItem(`saved-${n}`)) {
+      window.localStorage.setItem(`saved-${n}`,"")
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

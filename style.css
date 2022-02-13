@@ -254,7 +254,7 @@ a {
   display: flex;
   position: fixed;
   width: 100vw;
-  height: 100vw;
+  height: 100vh;
   top: 0%;
   left: 0%;
   font-size: var(--text-font-size);
@@ -304,6 +304,21 @@ a {
 
 .bottombutton {
   background-color: var(--yellow);
+}
+
+#back {
+  display: flex;
+  touch-action: manipulation;
+  position: fixed;
+  cursor: pointer;
+  color: white;
+  width: var(--box-width);
+  height: calc(var(--box-width) * 0.8);
+  font-size: var(--text-font-size);
+  margin: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 :root {
