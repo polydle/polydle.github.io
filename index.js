@@ -376,7 +376,9 @@ const setUp = () => {
     const prevday = window.localStorage.getItem("prevday")
     if (parseInt(prevday) !== day) {
       window.localStorage.setItem("prevday",day)
-      window.localStorage.setItem(`saved-${n}`,"")
+      for (let i = 1; i < 2316; i++) {
+        window.localStorage.removeItem(`saved-${i}`)
+      }
     } else {
       const savedstr = window.localStorage.getItem(`saved-${n}`)
       if (!!savedstr) {
