@@ -390,7 +390,7 @@ svg {
   max-width: 100vw;
   height: 100vh;
   /* float: right; */
-  overflow-y: auto;
+  overflow-y: overlay;
   font-size: var(--howto-font-size);
   background-color: black;
   color: white;
