@@ -210,7 +210,7 @@ const addSection = () => {
       const letter = document.getElementById(`l-${wind}-${i}-${j}`)
       const c = letter.innerHTML.toLowerCase()
       const wedge = document.getElementById(`key-${c}-${i}`)
-      wedge.classList.add("gray")
+      // wedge.classList.add("gray")
       letter.classList.add("gray")
       if (c === words[i][j]) {
         d[c] += 1
@@ -397,30 +397,22 @@ const setUp = () => {
   }
 }
 
-let realboxwidth = "48px"
-
 const openHowTo = () => {
   const menu = document.getElementById("howto-page")
   menu.style.top = "0%"
-  if (realboxwidth !== "48px") {
-    console.log("here")
-    document.documentElement.style.setProperty('--box-width', 'calc(calc(98vw / 11.5) - 2px)');
-  }
 }
 
 const closeHowTo = () => {
   const menu = document.getElementById("howto-page")
   menu.style.top = "100%"
-  setTimeout(() => {document.documentElement.style.setProperty('--box-width', realboxwidth)}, 900);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   if (checkMobile()) {
     document.documentElement.style.setProperty('--box-width', 'calc(calc(98vw / 10) - 2px)');
-    document.documentElement.style.setProperty('--box-width2', 'calc(calc(98vw / 10) - 2px)');
+    document.documentElement.style.setProperty('--box-width2', 'calc(calc(98vw / 11.5) - 2px)');
     document.documentElement.style.setProperty('--text-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.66)');
-    realboxwidth = 'calc(calc(98vw / 10) - 2px)'
-    document.documentElement.style.setProperty('--howto-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.66)');
+    // document.documentElement.style.setProperty('--howto-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.66)');
     // document.getElementById("title").style.marginTop = "30px"
     const container = document.getElementById("container")
     container.style.maxWidth = "98vw"
