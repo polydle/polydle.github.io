@@ -455,6 +455,10 @@ b.y {
   color: var(--yellow);
 }
 
+b.gr {
+  color: var(--gray);
+}
+
 #ex {
   display: flex;
   touch-action: manipulation;
