@@ -160,6 +160,10 @@ body {
   user-select: none;
 }
 
+.pie > h2.howto-h2 {
+  font-size: calc(var(--text-font-size));
+}
+
 .pie > .circle {
   pointer-events: none;
   position: absolute;

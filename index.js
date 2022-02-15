@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
     container.style.height = "calc(75vh - calc(calc(calc(var(--box-width) + 2px) * 3) + 80px))"
     const menu = document.getElementById("menu")
     menu.style.width = "90vw"
-    menu.style.height = "75vw"
+    menu.style.height = "75vh"
     // document.getElementById("ex").style.left = "calc(calc(100% - calc(var(--box-width) * 0.8)) + 5vw)"
   // } else {
   //   document.getElementById("menu").style.minWidth = "600px"
