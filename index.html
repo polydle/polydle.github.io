@@ -26,10 +26,15 @@
     <div id="back" onclick="window.location.search = ''">←</div>
     <div id="title">DAILY N-DLE #</div>
     <div id="start-page">
-      <div id="title2" class="title-page">POLYDLE</div>
+      <div id="title2">POLYDLE</div>
       <div class="subdiv">
         <div class="subtitle">©2022 Jack Boettcher</div>
         <div class="subtitle small"><p>Based on <a href="https://quordle.com" target="_blank">Quordle</a> by Freddie Meyer</p></div>
+      </div>
+      <div id="howto">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" onclick="openHowTo()">
+          <path fill="white" d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"></path>
+        </svg>
       </div>
       <div id="inputdiv">
         <div>How many words? (1-2315)</div>
@@ -37,6 +42,121 @@
       </div>
       <div class="buttondiv" onclick="submitN()">Daily Polydle</div>
       <div class="buttondiv bottombutton" onclick="submitN(false)">Random Polydle</div>
+    </div>
+    <div id="howto-page">
+      <div id="menu">
+        <div id="ex" onclick="closeHowTo()">×</div>
+        <div class="howto-title">How to play</div>
+        <div class="howto-text">
+          Guess all Polydle words in as few guesses as possible.
+          Each guess must be a valid 5-letter word.
+          Hit Enter to submit your guess.
+          After each guess, the colors will indicate how close you were to each word.
+          You'll get a set of colors for each word you haven't solved.
+        </div>
+        <div class="howto-text">
+          New Polydles for each number come out each day!
+        </div>
+        <div class="howto-subtitle">Colors</div>
+        <div class="howto-text">
+          <b class="g">Green</b> squares indicate the letter is in the word and in the right spot.
+          <b class="y">Yellow</b> squares indicate the letter is in the word but in the wrong spot.
+          <b class="gr">Gray</b> squares indicate the letter is not in the word in any spot.
+        </div>
+        <div class="word howto-word addmargin">
+          <div class="letter howto-letter">E</div>
+          <div class="letter">R</div>
+          <div class="letter">O</div>
+          <div class="letter green">D</div>
+          <div class="letter">E</div>
+        </div>
+        <div class="howto-text">The D is in the word and in the right spot.</div>
+        <div class="word howto-word addmargin">
+          <div class="letter howto-letter yellow">S</div>
+          <div class="letter">A</div>
+          <div class="letter">I</div>
+          <div class="letter">N</div>
+          <div class="letter">T</div>
+        </div>
+        <div class="howto-text">The S is in the word but in the wrong spot.</div>
+        <div class="word howto-word addmargin">
+          <div class="letter howto-letter">X</div>
+          <div class="letter gray">Y</div>
+          <div class="letter">L</div>
+          <div class="letter">E</div>
+          <div class="letter">M</div>
+        </div>
+        <div class="howto-text">The Y is not in the word in any spot.</div>
+        <div class="howto-subtitle">Multiple Words</div>
+        <div class="howto-text">
+          In Polydle, you guess multiple words at once using the same guess for all of them.
+          You'll get colors independently for each one.
+          Once you solve a word, you'll stop guessing for that word.
+          You win once you solve all the words.
+        </div>
+        <div class="howto-text addsmall">Consider this 2-dle example:</div>
+        <div class="section howto-section">
+          <div class="word howto-word">
+            <div class="letter gray howto-letter">A</div>
+            <div class="letter yellow">L</div>
+            <div class="letter gray">I</div>
+            <div class="letter green">E</div>
+            <div class="letter gray">N</div>
+          </div>
+          <div class="word">
+            <div class="letter yellow">A</div>
+            <div class="letter gray">L</div>
+            <div class="letter gray">I</div>
+            <div class="letter yellow">E</div>
+            <div class="letter yellow">N</div>
+          </div>
+        </div>
+        <div class="howto-text">
+          The first word has the E in the right spot and the L in the wrong spot.
+          The second word has A, E, N all in the wrong spots.
+          Keep guessing until you solve all the words!
+        </div>
+        <div class="howto-subtitle">Keyboard Indicators</div>
+        <div class="howto-text">
+          The keyboard will tell you information about that letter with respect to each word
+          based on your guesses so far. The indicators start at 9-o-clock (except for 2-dle)
+          and continue around clockwise for each word.
+        </div>
+        <div class="howto-text addsmall">Here's some example keys during a 3-dle game:</div>
+        <div class="row addsmall">
+          <div class="pie howto-letter">
+            <h2>Q</h2>
+            <div class="key circle" style="transform: rotate(-90deg) skewY(30deg)"></div>
+            <div class="key circle" style="transform: rotate(30deg) skewY(30deg)"></div>
+            <div class="key circle" style="transform: rotate(150deg) skewY(30deg)"></div>
+          </div>
+          <div class="pie">
+            <h2>W</h2>
+            <div class="key circle gray" style="transform: rotate(-90deg) skewY(30deg)"></div>
+            <div class="key circle gray" style="transform: rotate(30deg) skewY(30deg)"></div>
+            <div class="key circle gray" style="transform: rotate(150deg) skewY(30deg)"></div>
+          </div>
+          <div class="pie">
+            <h2>E</h2>
+            <div class="key circle gray" style="transform: rotate(-90deg) skewY(30deg)"></div>
+            <div class="key circle green" style="transform: rotate(30deg) skewY(30deg)"></div>
+            <div class="key circle gray" style="transform: rotate(150deg) skewY(30deg)"></div>
+          </div>
+          <div class="pie">
+            <h2>R</h2>
+            <div class="key circle gray" style="transform: rotate(-90deg) skewY(30deg)"></div>
+            <div class="key circle gray" style="transform: rotate(30deg) skewY(30deg)"></div>
+            <div class="key circle yellow" style="transform: rotate(150deg) skewY(30deg)"></div>
+          </div>
+        </div>
+        <div class="howto-text addsmall">
+          So far, we've guessed W, E, R but not Q.
+          W wasn't in any of the words.
+          E was only in word 2 and we got the position correct.
+          R was only in word 3 and we didn't get the position correct.
+        </div>
+        <br>
+      </div>
     </div>
     <div id="container">
       <div id="s-0" class="section"></div>
