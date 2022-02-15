@@ -391,6 +391,7 @@ svg {
   height: 100vh;
   /* float: right; */
   overflow-y: overlay;
+  -webkit-overflow-scrolling: touch;
   font-size: var(--howto-font-size);
   background-color: black;
   color: white;
