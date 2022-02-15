@@ -76,10 +76,6 @@ body {
   color: black;
 }
 
-.letter.gray {
-  background-color: var(--gray);
-}
-
 .letter.green {
   background-color: var(--green);
 }
@@ -457,10 +453,6 @@ b.g {
 
 b.y {
   color: var(--yellow);
-}
-
-b.gr {
-  color: var(--gray);
 }
 
 #ex {

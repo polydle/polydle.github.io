@@ -210,8 +210,8 @@ const addSection = () => {
       const letter = document.getElementById(`l-${wind}-${i}-${j}`)
       const c = letter.innerHTML.toLowerCase()
       const wedge = document.getElementById(`key-${c}-${i}`)
-      // wedge.classList.add("gray")
-      letter.classList.add("gray")
+      wedge.classList.add("gray")
+      // letter.classList.add("gray")
       if (c === words[i][j]) {
         d[c] += 1
         count += 1
