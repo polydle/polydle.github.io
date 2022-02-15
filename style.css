@@ -470,7 +470,7 @@ b.gr {
 
 :root {
   --green: rgb(0, 201, 134);
-  --yellow: #fc0;
+  --yellow: rgb(250, 200, 0);
   --gray: rgb(212, 212, 212);
   --btwn-letters: 1px;
   --btwn-words: 4px;

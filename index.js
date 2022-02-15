@@ -417,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.style.setProperty('--box-width2', 'calc(calc(98vw / 10) - 2px)');
     document.documentElement.style.setProperty('--text-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.66)');
     realboxwidth = 'calc(calc(98vw / 10) - 2px)'
-    document.documentElement.style.setProperty('--howto-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.5)');
+    document.documentElement.style.setProperty('--howto-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.56)');
     // document.getElementById("title").style.marginTop = "30px"
     const container = document.getElementById("container")
     container.style.maxWidth = "98vw"
