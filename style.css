@@ -6,14 +6,16 @@ body {
 
 #container {
   /* position: fixed; */
+  background-color: 0;
   visibility: visible;
   /* padding: 40px; */
   margin: 0 auto 0 auto;
   width: max-content;
   max-width: 80vw;
   height: calc(100vh - calc(calc(calc(var(--box-width) + 2px) * 3) + 60px));
-  overflow-x: auto;
-  overflow-y: auto;
+  /* overflow: overlay; */
+  overflow-x: overlay;
+  overflow-y: overlay;
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -21,6 +23,21 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   border: 2px solid black;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(117, 117, 117, 0.5);
 }
 
 .section {
@@ -33,9 +50,9 @@ body {
   align-items: center;
 }
 
-#s-0 {
+/* #s-0 {
   margin: var(--btwn-words) 0 0 0;
-}
+} */
 
 .letter {
   display: flex;
@@ -74,11 +91,11 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0 var(--btwn-words) 0 0;
+  padding: 0 0 0 var(--btwn-words);
 }
 
 .first {
-  padding: 0 var(--btwn-words) 0 var(--btwn-words);
+  padding: 0;
 }
 
 #keyboard {
