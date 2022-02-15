@@ -132,6 +132,8 @@ const rowsBefore = s => (
 const setNonN = () => {
   n = 0
   document.getElementById("start-page").style.display = "flex"
+  const prevn = localStorage.getItem("prevn")
+  document.getElementById("ninput").value = prevn ? prevn : 5
   // const title2 = document.getElementById("title2")
   // title2.innerHTML = `DAILY POLYDLES #${pad(day.toString(),4)}`
   const title = document.getElementById("title")
@@ -157,6 +159,7 @@ const submitN = (daily=true) => {
     return false
   }
   window.location.search = "?"+(daily ? "" : "-")+n
+  window.localStorage.setItem("prevn",n)
 }
 
 const setN = () => {
