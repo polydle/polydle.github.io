@@ -6,7 +6,7 @@ let won = false
 let rand = false
 let mode = "classic"
 const search = window.location.search
-const possrand = Math.floor(Math.random()*1000000000)
+const possrand = () => Math.floor(Math.random()*1000000000)
 let n = parseInt(search.substring(1))
 const date = new Date()
 let day = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000) - (date.getFullYear()-2022)*365 - 42
@@ -14,7 +14,7 @@ if (search.length && !isNaN(search.substring(1))) {
   if (n > 0 && n < 2316) {
     window.location.search = "?classic/daily/"+n
   } else if (n < 0 && n > -2316) {
-    window.location.search = "?classic/random/"+(-n)+"/"+possrand
+    window.location.search = "?classic/random/"+(-n)+"/"+possrand()
   } else {
     window.location.search = ""
   }
@@ -22,7 +22,7 @@ if (search.length && !isNaN(search.substring(1))) {
   const params = search.split("/")
   if (params.length < 3) {
     window.location.search = ""
-  } else if (!["?classic"].includes(params[0])) {
+  } else if (!["?classic","?speed"].includes(params[0])) {
     window.location.search = ""
   } else if (!["daily","random"].includes(params[1])) {
     window.location.search = ""
@@ -36,11 +36,11 @@ if (search.length && !isNaN(search.substring(1))) {
       if (rand) {
         const newrandstr = params[0]+"/"+params[1]+"/"+params[2]+"/"
         if (params.length === 3) {
-          window.location.search = newrandstr+possrand
+          window.location.search = newrandstr+possrand()
         } else if (params.length > 3) {
           day = parseInt(params[3])
           if (isNaN(params[3]) || day >= 1000000000 || day < 0) {
-            window.location.search = newrandstr+possrand
+            window.location.search = newrandstr+possrand()
           } else {
             if (params.length > 4) {
               window.location.search = newrandstr+day
@@ -199,7 +199,7 @@ const submitN = (daily=true) => {
   if (daily) {
     window.location.search = "?classic/daily/"+n
   } else {
-    window.location.search = "?classic/random/"+n+"/"+possrand
+    window.location.search = "?classic/random/"+n+"/"+possrand()
   }
   // window.location.search = "?"+(daily ? "" : "-")+n
 }
@@ -292,7 +292,7 @@ const addSection = () => {
       const timer = document.getElementById("time")
       // timer.style.display = "none"
       timer.innerHTML = "NEW"
-      timer.setAttribute("onclick", `(()=>{window.location.search="?classic/random/${n}/${Math.floor(Math.random()*1000000000)}"})()`)
+      timer.setAttribute("onclick", `(()=>{window.location.search="?classic/random/${n}/${possrand()}"})()`)
       timer.style.touchAction = "manipulation"
       timer.style.cursor = "pointer"
     }
