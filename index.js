@@ -109,7 +109,7 @@ const one = s => (
   s.split("").map(c => (
   `<div class="pie" onclick="presskey('${c}')">
     <h2>${c.toUpperCase()}</h2>
-    <div id="key-${c}-0" class="key"></div>
+    <div id="key-${c}-0" class="key full"></div>
   </div>`
   )).join("\n")
 )
