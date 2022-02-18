@@ -317,9 +317,9 @@ const presskey = (c,save=true) => {
       if (lind === 5) {
         if (allowed.has(word.toLowerCase())) {
           addSection()
-          if (save && !rand) {
-            const currsaved = window.localStorage.getItem(`saved-${n}`)
-            window.localStorage.setItem(`saved-${n}`,currsaved+word+",")
+          if (save) {
+            const currsaved = window.localStorage.getItem(`saved${rand ? "-rand" : ""}-${n}`)
+            window.localStorage.setItem(`saved${rand ? "-rand" : ""}-${n}`,currsaved+word+",")
           }
         }
       }
