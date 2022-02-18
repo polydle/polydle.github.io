@@ -4,32 +4,66 @@ const answers = answerstr.split(" ")
 
 let won = false
 let rand = false
+let mode = "classic"
 const search = window.location.search
+const possrand = Math.floor(Math.random()*1000000000)
 let n = parseInt(search.substring(1))
-if (search.length && (isNaN(n) || n < 1 || n > 2315)) {
-  if (isNaN(n) || n === 0) {
-    window.location.search = "?1"
-  } else if (n < 0) {
-    if (n < -2315) {
-      window.location.search = "?-2315"
-    }
-    n = -n
-    rand = true
+const date = new Date()
+let day = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000) - (date.getFullYear()-2022)*365 - 42
+if (search.length && !isNaN(search.substring(1))) {
+  if (n > 0 && n < 2316) {
+    window.location.search = "?classic/daily/"+n
+  } else if (n < 0 && n > -2316) {
+    window.location.search = "?classic/random/"+(-n)+"/"+possrand
   } else {
-    window.location.search = "?2315"
+    window.location.search = ""
+  }
+} else if (search.length) {
+  const params = search.split("/")
+  if (params.length < 3) {
+    window.location.search = ""
+  } else if (!["?classic"].includes(params[0])) {
+    window.location.search = ""
+  } else if (!["daily","random"].includes(params[1])) {
+    window.location.search = ""
+  } else {
+    n = parseInt(params[2])
+    if (isNaN(params[2]) || n < 1 || n > 2315) {
+      window.location.search = ""
+    } else {
+      mode = params[0].substring(1)
+      rand = params[1] === "random"
+      if (rand) {
+        const newrandstr = params[0]+"/"+params[1]+"/"+params[2]+"/"
+        if (params.length === 3) {
+          window.location.search = newrandstr+possrand
+        } else if (params.length > 3) {
+          day = parseInt(params[3])
+          if (isNaN(params[3]) || day >= 1000000000 || day < 0) {
+            window.location.search = newrandstr+possrand
+          } else {
+            if (params.length > 4) {
+              window.location.search = newrandstr+day
+            }
+          }
+        }
+      } else {
+        if (params.length > 3) {
+          window.location.search = params[0]+"/"+params[1]+"/"+params[2]
+        }
+      }
+    }
   }
 }
 let lind = 0
 let wind = 0
-const date = new Date()
-const day = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000) - (date.getFullYear()-2022)*365 - 42
 let words = []
 let wordds = []
 let dones = []
 let hrs,mns,scs
 
 const hashStr = str => {
-  let h1 = 0xdeadbeef, h2 = 0x41c6ce57+n+day;
+  let h1 = 0xdeadbeef+n, h2 = 0x41c6ce57+day+(rand ? 1000000 : 0);
   for (let i = 0, ch; i < str.length; i++) {
     ch = str.charCodeAt(i);
     h1 = Math.imul(h1 ^ ch, 2654435761);
@@ -40,23 +74,25 @@ const hashStr = str => {
   return 4294967296 * (2097151 & h2) + (h1>>>0);
 }
 
-const setDailyWords = () => {
+const setWords = () => {
   answers.sort((i,j) => hashStr(i)-hashStr(j))
   words = answers.slice(0,n)
   setUp()
 }
 
-const setRandWords = () => {
-  words = []
-  for (let i = 0; i < n; i++) {
-    let word = answers[Math.floor(Math.random()*answers.length)]
-    while (words.includes(word)) {
-      word = answers[Math.floor(Math.random()*answers.length)]
-    }
-    words.push(word)
-  }
-  setUp()
-}
+// const setRandWords = () => {
+//   answers.sort((i,j) => hashStr(i)-hashStr(j))
+//   words = answers.slice(0,n)
+//   words = []
+//   for (let i = 0; i < n; i++) {
+//     let word = answers[Math.floor(Math.random()*answers.length)]
+//     while (words.includes(word)) {
+//       word = answers[Math.floor(Math.random()*answers.length)]
+//     }
+//     words.push(word)
+//   }
+//   setUp()
+// }
 
 const setWordsUp = () => {
   wordds = []
@@ -154,12 +190,18 @@ const setNonN = () => {
 }
 
 const submitN = (daily=true) => {
-  n = parseInt(document.getElementById("ninput").value)
-  if (isNaN(n) || n < 1 || n > 2315) {
+  const nval = document.getElementById("ninput").value
+  n = parseInt(nval)
+  if (isNaN(nval) || n < 1 || n > 2315) {
     return false
   }
-  window.location.search = "?"+(daily ? "" : "-")+n
   window.localStorage.setItem("prevn",n)
+  if (daily) {
+    window.location.search = "?classic/daily/"+n
+  } else {
+    window.location.search = "?classic/random/"+n+"/"+possrand
+  }
+  // window.location.search = "?"+(daily ? "" : "-")+n
 }
 
 const setN = () => {
@@ -248,7 +290,11 @@ const addSection = () => {
     winbox.style.display = "flex"
     if (rand) {
       const timer = document.getElementById("time")
-      timer.style.display = "none"
+      // timer.style.display = "none"
+      timer.innerHTML = "NEW"
+      timer.setAttribute("onclick", `(()=>{window.location.search="?classic/random/${n}/${Math.floor(Math.random()*1000000000)}"})()`)
+      timer.style.touchAction = "manipulation"
+      timer.style.cursor = "pointer"
     }
   } else {
     const container = document.getElementById("container")
@@ -319,7 +365,7 @@ const presskey = (c,save=true) => {
 const copy = () => {
   const aux = document.createElement("textarea");
   let s = `${rand ? "Random" : "Daily"} ${n}-dle${rand ? "" : ` #${pad(day.toString(),4)}`}
-${Math.max(...dones)} : ${dones.join("&")}\npolydle.github.io/?${rand ? "-" : ""}${n}\n\n`
+${Math.max(...dones)} : ${dones.join("&")}\npolydle.github.io/?classic/${rand ? "random" : "daily"}/${n}${rand ? "/"+day : ""}\n\n`
   for (let i = 0; i < n; i++) {
     let k = 0
     let allgreen = false
@@ -394,6 +440,24 @@ const setUp = () => {
     if (!window.localStorage.getItem(`saved-${n}`)) {
       window.localStorage.setItem(`saved-${n}`,"")
     }
+  } else {
+    const prevrand = window.localStorage.getItem("prevrand")
+    if (parseInt(prevrand) !== day) {
+      window.localStorage.setItem("prevrand",day)
+      for (let i = 1; i < 2316; i++) {
+        window.localStorage.removeItem(`saved-rand-${i}`)
+      }
+    } else {
+      const savedstr = window.localStorage.getItem(`saved-rand-${n}`)
+      if (!!savedstr) {
+        for (let c of savedstr.split("")) {
+          presskey(c === "," ? "Enter" : c,false)
+        }
+      }
+    }
+    if (!window.localStorage.getItem(`saved-rand-${n}`)) {
+      window.localStorage.setItem(`saved-rand-${n}`,"")
+    }
   }
 }
 
@@ -427,11 +491,12 @@ document.addEventListener('DOMContentLoaded', () => {
   setTime()
   if (search.length) {
     setN()
-    if (rand) {
-      setRandWords()
-    } else {
-      setDailyWords()
-    }
+    setWords()
+    // if (rand) {
+    //   setRandWords()
+    // } else {
+    //   setDailyWords()
+    // }
   } else {
     setNonN()
   }
