@@ -25,6 +25,8 @@
     <script src="index.js"></script>
     <div id="back" onclick="window.location.search = ''">←</div>
     <div id="title">DAILY N-DLE #</div>
+    <div id="modetitle">classic mode</div>
+    <div id="timer">0.00</div>
     <div id="start-page">
       <div id="title2">POLYDLE</div>
       <div class="subdiv">
@@ -40,8 +42,10 @@
         <div>How many words? (1-2315)</div>
         <input id="ninput" type="number" value="" min="1" max="2315">
       </div>
-      <div class="buttondiv" onclick="submitN()">Daily Polydle</div>
-      <div class="buttondiv bottombutton" onclick="submitN(false)">Random Polydle</div>
+      <div id="dailybutton" class="buttondiv" onclick="submitN('classic')">Daily Polydle</div>
+      <div id="dailymodes" class="modebutton" onclick="submitN('classic')">Daily Polydle</div>
+      <div id="randombutton" class="buttondiv bottombutton" onclick="submitN('classic',false)">Random Polydle</div>
+      <div id="randommodes" class="modebutton" onclick="submitN('classic')">Daily Polydle</div>
     </div>
     <div id="howto-page">
       <div id="menu">
@@ -159,6 +163,17 @@
           W wasn't in any of the words.
           E was only in word 2 and we got the position correct.
           R was only in word 3 and we didn't get the position correct.
+        </div>
+        <div class="howto-title">Modes</div>
+        <div class="howto-subtitle aftertitle">Classic</div>
+        <div class="howto-text">
+          In classic mode, you aim to minimize your total number of guesses across all words.
+          While the game won't enforce a limit on number of guesses, a good score to aim for is n+5 (where n is the number of words).
+        </div>
+        <div class="howto-subtitle">Speed</div>
+        <div class="howto-text">
+          In speed mode, it doesn't matter how many guesses you make. All that matters is the time it takes.
+          Your goal is to get all words as fast as possible, regardless of how many guesses it takes.
         </div>
         <br>
       </div>

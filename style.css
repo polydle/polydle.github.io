@@ -12,7 +12,7 @@ body {
   margin: 0 auto 0 auto;
   width: max-content;
   max-width: 80vw;
-  height: calc(100vh - calc(calc(calc(var(--box-width) + 2px) * 3) + 60px));
+  height: calc(var(--full-screen) - calc(calc(calc(var(--keyboard-height) + var(--title-height)) + var(--mode-tot-height)) + var(--timer-size)));
   /* overflow: overlay; */
   overflow-x: overlay;
   overflow-y: overlay;
@@ -147,7 +147,7 @@ body {
   cursor: default;
   margin: 0;
   position: absolute;
-  font-size: calc(var(--text-font-size) * 0.8);
+  font-size: var(--h2-font-size);
   font-weight: normal;
   top: 50%;
   left: 50%;
@@ -162,7 +162,7 @@ body {
 }
 
 .pie > h2.howto-h2 {
-  font-size: calc(var(--text-font-size));
+  font-size: var(--text-font-size);
 }
 
 .pie > .circle {
@@ -222,8 +222,9 @@ body {
   display: none;
   /* visibility: hidden; */
   margin: 0 auto 0 auto;
+  padding-bottom: var(--win-padding-bottom);
   width: max-content;
-  height: calc(calc(var(--box-width) + 2px) * 3);
+  height: calc(var(--keyboard-height) - var(--win-padding-bottom));
   flex-direction: column;
   align-items: center;
   justify-content: start;
@@ -236,7 +237,7 @@ body {
   justify-content: space-evenly;
   padding: 0 12px 0 12px;
   width: auto;
-  height: calc(var(--box-width) * 1.45);
+  height: var(--share-height);
   color: white;
   font-size: var(--text-font-size);
 }
@@ -250,7 +251,7 @@ body {
   display: flex;
   margin: 0 auto 0 auto;
   width: max-content;
-  height: calc(var(--box-width) * 1.25);
+  height: var(--title-height);
   font-size: var(--text-font-size);
   color: white;
   flex-direction: column;
@@ -259,20 +260,45 @@ body {
 }
 
 #title2 {
-  font-size: calc(var(--text-font-size) * 2);
+  font-size: var(--title2-font-size);
   margin-bottom: 10px;
 }
 
 #title {
-  transform: translate(0,calc(var(--box-width) * 0.12));
+  transform: translate(0,var(--title-translate));
+}
+
+#modetitle {
+  display: flex;
+  margin: var(--mode-margin-top) auto var(--mode-margin-bottom) auto;
+  width: max-content;
+  height: var(--mode-height);
+  font-size: var(--mode-font-size);
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#timer {
+  display: none;
+  margin: var(--timer-margin-top) auto var(--timer-margin-bottom) auto;
+  width: max-content;
+  height: var(--mode-height);
+  font-size: var(--mode-font-size);
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-variant-numeric: tabular-nums;
 }
 
 .subtitle {
   display: flex;
   margin: 0 auto 0 auto;
   width: max-content;
-  /* height: calc(var(--box-width) * 1.25); */
-  font-size: calc(var(--text-font-size) * 0.75);
+  /* height: var(--title-height); */
+  font-size: var(--subtitle-font-size);
   color: white;
   flex-direction: column;
   align-items: center;
@@ -281,7 +307,7 @@ body {
 
 .subtitle.small {
   /* margin-top: 1px; */
-  font-size: calc(var(--text-font-size) * 0.6);
+  font-size: var(--subsubtitle-font-size);
 }
 
 p {
@@ -383,6 +409,20 @@ svg {
   background-color: var(--yellow);
 }
 
+.modebutton {
+  display: none;
+  cursor: pointer;
+  background-color: var(--green);
+  margin-top: 18px;
+  width: calc(var(--box-width) * 6.3);
+  height: calc(var(--box-width) * 1.3);
+  color: black;
+  font-size: calc(var(--text-font-size) * 1.04);
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 #back {
   display: flex;
   touch-action: manipulation;
@@ -390,7 +430,7 @@ svg {
   cursor: pointer;
   color: white;
   width: var(--box-width);
-  height: calc(var(--box-width) * 0.8);
+  height: var(--mode-height);
   font-size: var(--text-font-size);
   margin: 8px;
   flex-direction: column;
@@ -430,10 +470,14 @@ svg {
 }
 
 .howto-subtitle {
-  margin-top: 20px;
+  margin-top: 17px;
   width: 100%;
   /* margin-bottom: 8px; */
   font-size: calc(var(--text-font-size) * 0.85);
+}
+
+.howto-subtitle.aftertitle {
+  margin-top: 10px;
 }
 
 .howto-section {
@@ -473,11 +517,11 @@ b.gr {
   display: flex;
   touch-action: manipulation;
   position: absolute;
-  left: calc(100% - calc(var(--box-width) * 0.8));
+  left: calc(100% - var(--mode-height));
   cursor: pointer;
   color: white;
-  width: calc(var(--box-width) * 0.8);
-  height: calc(var(--box-width) * 0.8);
+  width: var(--mode-height);
+  height: var(--mode-height);
   font-size: calc(var(--text-font-size) * 1.1);
   flex-direction: column;
   justify-content: center;
@@ -492,5 +536,24 @@ b.gr {
   --btwn-words: 4px;
   --box-width: 48px;
   --box-width2: 48px;
+  --full-screen: 100vh;
   --text-font-size: 36px;
+  --h2-font-size: calc(var(--text-font-size) * 0.8);
+  --keyboard-height: calc(calc(var(--box-width) + 2px) * 3);
+  --share-height: calc(var(--box-width) * 1.45);
+  --title-height: calc(var(--box-width) * 1.25);
+  --title2-font-size: calc(var(--text-font-size) * 2);
+  --title-translate: calc(var(--box-width) * 0.12);
+  --subtitle-font-size: calc(var(--text-font-size) * 0.75);
+  --subsubtitle-font-size: calc(var(--text-font-size) * 0.6);
+  --mode-margin-top: calc(0px - calc(var(--box-width) / 12));
+  --mode-margin-bottom: calc(var(--box-width) / 3.5);
+  --mode-height: calc(var(--box-width) * 0.8);
+  --mode-tot-height: calc(calc(var(--mode-margin-top) + var(--mode-margin-bottom)) + var(--mode-height));
+  --mode-font-size: calc(var(--text-font-size) * 0.7);
+  --timer-size: 0px;
+  --timer-margin-top: calc(0px - calc(var(--box-width) / 3.2));
+  --timer-margin-bottom: calc(var(--box-width) / 4.5);
+  --timer-tot-height: calc(calc(var(--timer-margin-top) + var(--timer-margin-bottom)) + var(--mode-height));
+  --win-padding-bottom: 30px;
 }

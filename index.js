@@ -61,9 +61,11 @@ let words = []
 let wordds = []
 let dones = []
 let hrs,mns,scs
+let starttime = false
+let timerfunc
 
 const hashStr = str => {
-  let h1 = 0xdeadbeef+n, h2 = 0x41c6ce57+day+(rand ? 1000000 : 0);
+  let h1 = 0xdeadbeef+n+(mode == "speed" ? 10000 : 0), h2 = 0x41c6ce57+day+(rand ? 1000000 : 0);
   for (let i = 0, ch; i < str.length; i++) {
     ch = str.charCodeAt(i);
     h1 = Math.imul(h1 ^ ch, 2654435761);
@@ -189,17 +191,18 @@ const setNonN = () => {
   })
 }
 
-const submitN = (daily=true) => {
+const submitN = (mode,daily=true) => {
   const nval = document.getElementById("ninput").value
   n = parseInt(nval)
   if (isNaN(nval) || n < 1 || n > 2315) {
     return false
   }
   window.localStorage.setItem("prevn",n)
+  const mode2 = !!mode ? mode : "classic"
   if (daily) {
-    window.location.search = "?classic/daily/"+n
+    window.location.search = `?${mode2}/daily/`+n
   } else {
-    window.location.search = "?classic/random/"+n+"/"+possrand()
+    window.location.search = `?${mode2}/random/`+n+"/"+possrand()
   }
   // window.location.search = "?"+(daily ? "" : "-")+n
 }
@@ -208,6 +211,7 @@ const setN = () => {
   document.getElementById("start-page").style.display = "none"
   const title = document.getElementById("title")
   title.innerHTML = `${rand ? "RANDOM" : "DAILY"} ${n}-DLE${rand ? "" : ` #${pad(day.toString(),4)}`}`
+  document.getElementById("modetitle").innerHTML = mode+" mode"
   const top = document.getElementById("s-0")
   top.innerHTML = getSectionString(0)
   const f = n === 1 ? one : n === 2 ? two : threeAndUp
@@ -284,6 +288,17 @@ const addSection = () => {
     if (!rand) {
       setInterval(setTime,100)
     }
+    if (mode == "speed") {
+      const endtime = window.localStorage.getItem(`endtime${rand ? "-rand" : ""}-${n}`)
+      if (!!endtime && !isNaN(endtime)) {
+        updateSpeedTime(new Date(parseInt(endtime)))
+      } else {
+        const d = new Date()
+        updateSpeedTime(d)
+        window.localStorage.setItem(`endtime${rand ? "-rand" : ""}-${n}`,d.getTime())
+      }
+      clearInterval(timerfunc)
+    }
     const keyboard = document.getElementById("keyboard")
     keyboard.style.display = "none"
     const winbox = document.getElementById("win")
@@ -302,9 +317,31 @@ const addSection = () => {
   }
 }
 
+const updateSpeedTime = (d = new Date()) => {
+  const timer = document.getElementById("timer")
+  let millis = d - starttime
+  const hs = Math.floor(millis/1000/60/60)
+  millis -= hs*1000*60*60
+  const ms = Math.floor(millis/1000/60)
+  millis -= ms*1000*60
+  const ss = Math.floor(millis/1000)
+  millis -= ss*1000
+  millis = Math.floor(millis/10)
+  timer.innerHTML = (hs > 0 ? hs+":" : "")+(ms > 0 ? pad(ms.toString(),(hs > 0 ? 2 : 1))+":" : "")+pad(ss.toString(),(ms > 0 ? 2: 1))+"."+pad(millis.toString(),2)
+}
+
+const startspeedmode = () => {
+  timerfunc = setInterval(updateSpeedTime,10)
+}
+
 const presskey = (c,save=true) => {
   if (won) {
     return
+  }
+  if (mode == "speed" && !starttime) {
+    starttime = new Date()
+    window.localStorage.setItem(`starttime${rand ? "-rand" : ""}-${n}`,starttime.getTime())
+    startspeedmode()
   }
   let add = 0
   let word = ""
@@ -318,8 +355,8 @@ const presskey = (c,save=true) => {
         if (allowed.has(word.toLowerCase())) {
           addSection()
           if (save) {
-            const currsaved = window.localStorage.getItem(`saved${rand ? "-rand" : ""}-${n}`)
-            window.localStorage.setItem(`saved${rand ? "-rand" : ""}-${n}`,currsaved+word+",")
+            const currsaved = window.localStorage.getItem(`saved-${mode}${rand ? "-rand" : ""}-${n}`)
+            window.localStorage.setItem(`saved-${mode}${rand ? "-rand" : ""}-${n}`,currsaved+word+",")
           }
         }
       }
@@ -364,31 +401,39 @@ const presskey = (c,save=true) => {
 
 const copy = () => {
   const aux = document.createElement("textarea");
-  let s = `${rand ? "Random" : "Daily"} ${n}-dle${rand ? "" : ` #${pad(day.toString(),4)}`}
-${Math.max(...dones)} : ${dones.join("&")}\npolydle.github.io/?classic/${rand ? "random" : "daily"}/${n}${rand ? "/"+day : ""}\n\n`
-  for (let i = 0; i < n; i++) {
-    let k = 0
-    let allgreen = false
-    while (!allgreen) {
-      allgreen = true
-      for (let j = 0; j < 5; j++) {
-        const letter = document.getElementById(`l-${k}-${i}-${j}`)
-        if (letter.classList.contains("green")) {
-          s += "🟩"
-        } else {
-          allgreen = false
-          if (letter.classList.contains("yellow")) {
-            s += "🟨"
+  let s = `${rand ? "Random" : "Daily"} ${mode === "speed" ? "Speed " : ""}${n}-dle${rand ? "" : ` #${pad(day.toString(),4)}`}\n`
+  if (mode === "speed") {
+    s += document.getElementById("timer").innerHTML + "\n"
+  }
+  s += `${Math.max(...dones)} : ${dones.join("&")}\npolydle.github.io/?${mode}/${rand ? "random" : "daily"}/${n}${rand ? "/"+day : ""}`
+  if (mode !== "speed") {
+    s += "\n\n"
+    for (let i = 0; i < n; i++) {
+      let k = 0
+      let allgreen = false
+      while (!allgreen) {
+        allgreen = true
+        for (let j = 0; j < 5; j++) {
+          const letter = document.getElementById(`l-${k}-${i}-${j}`)
+          if (letter.classList.contains("green")) {
+            s += "🟩"
           } else {
-            s += "⬜"
+            allgreen = false
+            if (letter.classList.contains("yellow")) {
+              s += "🟨"
+            } else {
+              s += "⬜"
+            }
           }
         }
+        if (!allgreen || i < n-1) {
+          s += "\n"
+        }
+        k++
       }
-      s += "\n"
-      k++
-    }
-    if (i < n-1) {
-      s += "\n"
+      if (i < n-1) {
+        s += "\n"
+      }
     }
   }
   aux.innerHTML = s
@@ -422,42 +467,36 @@ const setUp = () => {
     event.preventDefault()
     presskey(c)
   })
-  if (!rand) {
-    const prevday = window.localStorage.getItem("prevday")
-    if (parseInt(prevday) !== day) {
-      window.localStorage.setItem("prevday",day)
-      for (let i = 1; i < 2316; i++) {
-        window.localStorage.removeItem(`saved-${i}`)
-      }
-    } else {
-      const savedstr = window.localStorage.getItem(`saved-${n}`)
-      if (!!savedstr) {
-        for (let c of savedstr.split("")) {
-          presskey(c === "," ? "Enter" : c,false)
-        }
-      }
-    }
-    if (!window.localStorage.getItem(`saved-${n}`)) {
-      window.localStorage.setItem(`saved-${n}`,"")
+  const prev = window.localStorage.getItem(rand ? "prevrand" : "prevday")
+  if (parseInt(prev) !== day) {
+    window.localStorage.setItem(rand ? "prevrand" : "prevday",day)
+    for (let i = 1; i < 2316; i++) {
+      window.localStorage.removeItem(`saved-classic${rand ? "-rand" : ""}-${i}`)
+      window.localStorage.removeItem(`saved-speed${rand ? "-rand" : ""}-${i}`)
+      window.localStorage.removeItem(`starttime${rand ? "-rand" : ""}-${i}`)
+      window.localStorage.removeItem(`endtime${rand ? "-rand" : ""}-${i}`)
     }
   } else {
-    const prevrand = window.localStorage.getItem("prevrand")
-    if (parseInt(prevrand) !== day) {
-      window.localStorage.setItem("prevrand",day)
-      for (let i = 1; i < 2316; i++) {
-        window.localStorage.removeItem(`saved-rand-${i}`)
-      }
-    } else {
-      const savedstr = window.localStorage.getItem(`saved-rand-${n}`)
-      if (!!savedstr) {
-        for (let c of savedstr.split("")) {
-          presskey(c === "," ? "Enter" : c,false)
-        }
+    if (mode === "speed") {
+      const currtime = window.localStorage.getItem(`starttime${rand ? "-rand" : ""}-${n}`)
+      if (!!currtime && !isNaN(currtime)) {
+        starttime = new Date(parseInt(currtime))
+        startspeedmode()
       }
     }
-    if (!window.localStorage.getItem(`saved-rand-${n}`)) {
-      window.localStorage.setItem(`saved-rand-${n}`,"")
+    const savedstr = window.localStorage.getItem(`saved-${mode}${rand ? "-rand" : ""}-${n}`)
+    if (!!savedstr) {
+      for (let c of savedstr.split("")) {
+        presskey(c === "," ? "Enter" : c,false)
+      }
     }
+  }
+  if (!window.localStorage.getItem(`saved-${mode}${rand ? "-rand" : ""}-${n}`)) {
+    window.localStorage.setItem(`saved-${mode}${rand ? "-rand" : ""}-${n}`,"")
+  }
+  if (mode === "speed") {
+    document.getElementById("timer").style.display = "flex"
+    document.documentElement.style.setProperty('--timer-size', 'var(--timer-tot-height)');
   }
 }
 
@@ -471,16 +510,21 @@ const closeHowTo = () => {
   menu.style.top = "100%"
 }
 
+const expandModes = (daily=true) => {
+  
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   if (checkMobile()) {
     document.documentElement.style.setProperty('--box-width', 'calc(calc(98vw / 10) - 2px)');
     document.documentElement.style.setProperty('--box-width2', 'calc(calc(98vw / 11.5) - 2px)');
     document.documentElement.style.setProperty('--text-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.66)');
+    document.documentElement.style.setProperty('--full-screen', '75vh');
     // document.documentElement.style.setProperty('--howto-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.66)');
     // document.getElementById("title").style.marginTop = "30px"
     const container = document.getElementById("container")
     container.style.maxWidth = "98vw"
-    container.style.height = "calc(75vh - calc(calc(calc(var(--box-width) + 2px) * 3) + 80px))"
+    // container.style.height = "calc(75vh - calc(calc(calc(var(--box-width) + 2px) * 3) + calc(calc(var(--box-width) * 2.05) + 30px)))"
     const menu = document.getElementById("menu")
     menu.style.width = "90vw"
     menu.style.height = "90vh"
