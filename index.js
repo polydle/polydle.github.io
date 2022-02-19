@@ -307,7 +307,7 @@ const addSection = () => {
       const timer = document.getElementById("time")
       // timer.style.display = "none"
       timer.innerHTML = "NEW"
-      timer.setAttribute("onclick", `(()=>{window.location.search="?classic/random/${n}/${possrand()}"})()`)
+      timer.setAttribute("onclick", `(()=>{window.location.search="?${mode}/random/${n}/${possrand()}"})()`)
       timer.style.touchAction = "manipulation"
       timer.style.cursor = "pointer"
     }
@@ -510,8 +510,21 @@ const closeHowTo = () => {
   menu.style.top = "100%"
 }
 
-const expandModes = (daily=true) => {
-  
+const expandModes = (mode) => {
+  for (let i = 0; i < 2; i++) {
+    const m = ["classic","speed"][i]
+    if (m === mode) {
+      const frontbtn = document.getElementById(`${m}btn`)
+      frontbtn.style.display = "none"
+      const dailybtn = document.getElementById(`${m}${i % 2 ? "random" : "daily"}`)
+      dailybtn.style.width = i % 2 ? "59%" : "41%"
+    } else {
+      const frontbtn = document.getElementById(`${m}btn`)
+      frontbtn.style.display = "flex"
+      const dailybtn = document.getElementById(`${m}${i % 2 ? "random" : "daily"}`)
+      dailybtn.style.width = "100%"
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

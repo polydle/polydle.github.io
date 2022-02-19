@@ -42,10 +42,16 @@
         <div>How many words? (1-2315)</div>
         <input id="ninput" type="number" value="" min="1" max="2315">
       </div>
-      <div id="dailybutton" class="buttondiv" onclick="submitN('classic')">Daily Polydle</div>
-      <div id="dailymodes" class="modebutton" onclick="submitN('classic')">Daily Polydle</div>
-      <div id="randombutton" class="buttondiv bottombutton" onclick="submitN('classic',false)">Random Polydle</div>
-      <div id="randommodes" class="modebutton" onclick="submitN('classic')">Daily Polydle</div>
+      <div id="classicdiv" class="buttonsdiv">
+        <div id="classicbtn" class="frontbutton" onclick="expandModes('classic')">Classic Polydle</div>
+        <div id="classicdaily" class="backbuttonleft" onclick="submitN('classic')">Daily</div>
+        <div id="classicrandom" class="backbuttonright notanim" onclick="submitN('classic',false)">Random</div>
+      </div>
+      <div id="speeddiv" class="buttonsdiv">
+        <div id="speedbtn" class="frontbutton bottom" onclick="expandModes('speed')">Speed Polydle</div>
+        <div id="speeddaily" class="backbuttonleft notanim" onclick="submitN('speed')">Daily</div>
+        <div id="speedrandom" class="backbuttonright bottom" onclick="submitN('speed',false)">Random</div>
+      </div>
     </div>
     <div id="howto-page">
       <div id="menu">
@@ -174,6 +180,10 @@
         <div class="howto-text">
           In speed mode, it doesn't matter how many guesses you make. All that matters is the time it takes.
           Your goal is to get all words as fast as possible, regardless of how many guesses it takes.
+        </div>
+        <div class="howto-title">Contact</div>
+        <div class="howto-text">
+          Send suggestions, report bugs, or just say hi at contactpolydle@gmail.com
         </div>
         <br>
       </div>
