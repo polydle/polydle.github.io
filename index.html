@@ -43,14 +43,19 @@
         <input id="ninput" type="number" value="" min="1" max="2315">
       </div>
       <div id="classicdiv" class="buttonsdiv">
-        <div id="classicbtn" class="frontbutton" onclick="expandModes('classic')">Classic Polydle</div>
-        <div id="classicdaily" class="backbuttonleft" onclick="submitN('classic')">Daily</div>
-        <div id="classicrandom" class="backbuttonright notanim" onclick="submitN('classic',false)">Random</div>
+        <div id="classicbtn" class="frontbutton green" onclick="expandModes('classic')">Classic Polydle</div>
+        <div id="classicdaily" class="backbuttonleft green" onclick="submitN('classic')">Daily</div>
+        <div id="classicrandom" class="backbuttonright notanim white" onclick="submitN('classic',false)">Random</div>
       </div>
       <div id="speeddiv" class="buttonsdiv">
-        <div id="speedbtn" class="frontbutton bottom" onclick="expandModes('speed')">Speed Polydle</div>
-        <div id="speeddaily" class="backbuttonleft notanim" onclick="submitN('speed')">Daily</div>
-        <div id="speedrandom" class="backbuttonright bottom" onclick="submitN('speed',false)">Random</div>
+        <div id="speedbtn" class="frontbutton yellow" onclick="expandModes('speed')">Speed Polydle</div>
+        <div id="speeddaily" class="backbuttonleft notanim white" onclick="submitN('speed')">Daily</div>
+        <div id="speedrandom" class="backbuttonright yellow" onclick="submitN('speed',false)">Random</div>
+      </div>
+      <div id="perfectdiv" class="buttonsdiv">
+        <div id="perfectbtn" class="frontbutton white" onclick="expandModes('perfect')">Perfect Polydle</div>
+        <div id="perfectdaily" class="backbuttonleft white" onclick="submitN('perfect')">Daily</div>
+        <div id="perfectrandom" class="backbuttonright notanim green" onclick="submitN('perfect',false)">Random</div>
       </div>
     </div>
     <div id="howto-page">
@@ -180,6 +185,12 @@
         <div class="howto-text">
           In speed mode, it doesn't matter how many guesses you make. All that matters is the time it takes.
           Your goal is to get all words as fast as possible, regardless of how many guesses it takes.
+        </div>
+        <div class="howto-subtitle">Perfect</div>
+        <div class="howto-text">
+          In perfect mode, you have to play 100% perfectly-- once you miss a word, you lose! Thankfully, the game
+          gives you the first word. And on each subsequent guess, it guarantees that there is at least one column
+          where there is a unique (non-obscure) word that satisfies all the clues so far.
         </div>
         <div class="howto-subtitle">More modes coming soon!</div>
         <div class="howto-title">Contact</div>

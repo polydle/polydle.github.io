@@ -84,6 +84,14 @@ body {
   background-color: var(--yellow);
 }
 
+.letter.death {
+  background-color: #ff3333;
+}
+
+.letter.black {
+  background-color: black;
+}
+
 .letter.red {
   color: red;
 }
@@ -293,6 +301,10 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+#time {
+  font-variant-numeric: tabular-nums;
+}
+
 .subtitle {
   display: flex;
   margin: 0 auto 0 auto;
@@ -353,6 +365,7 @@ svg {
 
 #howto-page {
   display: flex;
+  visibility: hidden;
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -421,10 +434,6 @@ svg {
   justify-content: center;
 }
 
-.frontbutton.bottom,.backbuttonright.bottom {
-  background-color: var(--yellow);
-}
-
 .backbuttonleft {
   position: absolute;
   left: 0;
@@ -436,7 +445,6 @@ svg {
 .backbuttonleft.notanim {
   z-index: 0;
   width: 41%;
-  background-color: white;
 }
 
 .backbuttonright {
@@ -450,6 +458,17 @@ svg {
 .backbuttonright.notanim {
   z-index: 0;
   width: 59%;
+}
+
+.frontbutton.green,.backbuttonright.green,.backbuttonleft.green {
+  background-color: var(--green);
+}
+
+.frontbutton.yellow,.backbuttonright.yellow,.backbuttonleft.yellow {
+  background-color: var(--yellow);
+}
+
+.frontbutton.white,.backbuttonright.white,.backbuttonleft.white {
   background-color: white;
 }
 
