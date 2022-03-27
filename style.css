@@ -88,6 +88,10 @@ body {
   background-color: #ff3333;
 }
 
+.letter.gray {
+  background-color: var(--gray);
+}
+
 .letter.black {
   background-color: black;
 }
