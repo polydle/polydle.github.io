@@ -97,7 +97,11 @@ body {
 }
 
 .letter.red {
-  color: red;
+  color: #ff3333;
+}
+
+.letter.graytext {
+  color: var(--gray);
 }
 
 .word {

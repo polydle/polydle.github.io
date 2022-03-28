@@ -406,7 +406,9 @@ const addSection = () => {
       perfectobscure++
       for (let i = 0; i < n; i++) {
         for (let j = 0; j < 5; j++) {
-          document.getElementById(`l-${wind}-${i}-${j}`).classList.add("gray")
+          const letter = document.getElementById(`l-${wind}-${i}-${j}`)
+          letter.classList.add("gray")
+          letter.classList.remove("graytext")
         }
       }
     }
@@ -527,6 +529,18 @@ const presskey = (c,save=true,perfectstart=true) => {
       for (let j = 0; j < 5; j++) {
         const letter = document.getElementById(`l-${wind}-${i}-${j}`)
         letter.classList.remove("red")
+        letter.classList.remove("graytext")
+      }
+    }
+    if (lind === 5 && mode === "perfect" && !uniques.has(word.toLowerCase())) {
+      for (let i = 0; i < n; i++) {
+        if (!!dones[i]) {
+          continue
+        }
+        for (let j = 0; j < 5; j++) {
+          const letter = document.getElementById(`l-${wind}-${i}-${j}`)
+          letter.classList.add("graytext")
+        }
       }
     }
   } else {
@@ -549,7 +563,7 @@ const copy = () => {
     s += document.getElementById("timer").innerHTML + "\n"
   }
   if (mode === "perfect") {
-    s += `${perfectdeath == -1 ? n : perfectdeath-2-perfectobscure}/${n} - ${perfectlives}❤️ : ${dones.map(i => perfectdeath != -1 && i > perfectdeath - perfectobscure ? "X" : i).join("&")}\n`
+    s += `${perfectdeath == -1 ? n : perfectdeath-2-perfectobscure}/${n} - ${3-perfectlives}❌ : ${dones.map(i => perfectdeath != -1 && i > perfectdeath - perfectobscure ? "X" : i).join("&")}\n`
     s += document.getElementById("timer").innerHTML + "\n"
   } else {
     s += `${Math.max(...dones)} : ${dones.join("&")}\n`
