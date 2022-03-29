@@ -736,6 +736,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.style.setProperty('--box-width2', 'calc(calc(98vw / 11.5) - 2px)');
     document.documentElement.style.setProperty('--text-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.66)');
     document.documentElement.style.setProperty('--full-screen', '75vh');
+    document.documentElement.style.setProperty('--title-margin-top', 'calc(calc(var(--mode-height) - 8px))');
     // document.documentElement.style.setProperty('--howto-font-size', 'calc(calc(calc(98vw / 10) - 2px) * 0.66)');
     // document.getElementById("title").style.marginTop = "30px"
     const container = document.getElementById("container")

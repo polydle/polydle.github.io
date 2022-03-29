@@ -12,7 +12,7 @@ body {
   margin: 0 auto 0 auto;
   width: max-content;
   max-width: 80vw;
-  height: calc(var(--full-screen) - calc(calc(calc(var(--keyboard-height) + var(--title-height))) + var(--timer-size)));
+  height: calc(var(--full-screen) - calc(calc(calc(var(--keyboard-height) + var(--title-height)) + var(--title-margin-top)) + var(--timer-size)));
   /* overflow: overlay; */
   overflow-x: overlay;
   overflow-y: overlay;
@@ -265,7 +265,7 @@ body {
 
 #title, #title2 {
   display: flex;
-  margin: 0 auto 0 auto;
+  margin: var(--title-margin-top) auto 0 auto;
   width: max-content;
   height: var(--title-height);
   font-size: var(--text-font-size);
@@ -491,6 +491,7 @@ svg {
   height: var(--mode-height);
   font-size: var(--text-font-size);
   margin: 8px;
+  top: 0px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -503,6 +504,7 @@ svg {
   cursor: pointer;
   color: white;
   margin: 12px;
+  top: 0px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -619,6 +621,7 @@ b.gr {
   --keyboard-height: calc(calc(var(--box-width) + 2px) * 3);
   --share-height: calc(var(--box-width) * 1.45);
   --title-height: calc(var(--box-width) * 1.25);
+  --title-margin-top: 4px;
   --title2-font-size: calc(var(--text-font-size) * 2);
   --title-translate: calc(var(--box-width) * 0.12);
   --subtitle-font-size: calc(var(--text-font-size) * 0.75);
