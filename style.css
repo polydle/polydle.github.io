@@ -12,7 +12,7 @@ body {
   margin: 0 auto 0 auto;
   width: max-content;
   max-width: 80vw;
-  height: calc(var(--full-screen) - calc(calc(calc(var(--keyboard-height) + var(--title-height)) + var(--mode-tot-height)) + var(--timer-size)));
+  height: calc(var(--full-screen) - calc(calc(calc(var(--keyboard-height) + var(--title-height))) + var(--timer-size)));
   /* overflow: overlay; */
   overflow-x: overlay;
   overflow-y: overlay;
@@ -611,6 +611,6 @@ b.gr {
   --timer-size: 0px;
   --timer-margin-top: calc(0px - calc(var(--box-width) / 3.2));
   --timer-margin-bottom: calc(var(--box-width) / 4.5);
-  --timer-tot-height: calc(calc(var(--timer-margin-top) + var(--timer-margin-bottom)) + var(--mode-height));
+  --timer-tot-height: calc(calc(var(--mode-margin-top) + var(--timer-margin-bottom)) + var(--mode-height));
   --win-padding-bottom: 30px;
 }
