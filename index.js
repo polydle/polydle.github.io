@@ -313,8 +313,8 @@ const submitN = (mode,daily=true) => {
 const setN = () => {
   document.getElementById("start-page").style.display = "none"
   const title = document.getElementById("title")
-  title.innerHTML = `${rand ? "RANDOM" : "DAILY"} ${n}-DLE${rand ? "" : ` #${pad(day.toString(),4)}`}`
-  document.getElementById("modetitle").innerHTML = mode+" mode"
+  title.innerHTML = `${rand ? "RANDOM" : "DAILY"} ${mode === "speed" ? "SPEED " : mode === "perfect" ? "PERFECT " : ""}${n}-DLE${rand ? "" : ` #${pad((day - (mode == "speed" ? 7 : mode == "perfect" ? 45 : 0)).toString(),4)}`}`
+  // document.getElementById("modetitle").innerHTML = mode+" mode"
   const top = document.getElementById("s-0")
   top.innerHTML = getSectionString(0)
   const f = n === 1 ? one : n === 2 ? two : threeAndUp
@@ -581,7 +581,7 @@ const presskey = (c,save=true,perfectstart=true) => {
 const nums = "0️⃣&1️⃣&2️⃣&3️⃣&4️⃣&5️⃣&6️⃣&7️⃣&8️⃣&9️⃣&🔟".split("&")
 const copy = () => {
   const aux = document.createElement("textarea");
-  let s = `${rand ? "Random" : "Daily"} ${mode === "speed" ? "Speed " : mode === "perfect" ? "Perfect " : ""}${n}-dle${rand ? "" : ` #${pad(day.toString(),4)}`}\n`
+  let s = `${rand ? "Random" : "Daily"} ${mode === "speed" ? "Speed " : mode === "perfect" ? "Perfect " : ""}${n}-dle${rand ? "" : ` #${pad((day - (mode == "speed" ? 7 : mode == "perfect" ? 45 : 0)).toString(),4)}`}\n`
   if (mode === "speed") {
     s += document.getElementById("timer").innerHTML + "\n"
   }

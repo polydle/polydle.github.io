@@ -298,7 +298,7 @@ body {
 
 #timer {
   display: none;
-  margin: var(--timer-margin-top) auto var(--timer-margin-bottom) auto;
+  margin: var(--mode-margin-top) auto var(--timer-margin-bottom) auto;
   width: max-content;
   height: var(--mode-height);
   font-size: var(--mode-font-size);
