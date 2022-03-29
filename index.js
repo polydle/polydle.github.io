@@ -697,8 +697,12 @@ const setUp = () => {
   }
 }
 
+const makehiddens = []
 const openHowTo = () => {
   const menu = document.getElementById("howto-page")
+  while (makehiddens.length > 0) {
+    clearTimeout(makehiddens.pop())
+  }
   menu.style.visibility = "visible"
   menu.style.top = "0%"
 }
@@ -706,7 +710,7 @@ const openHowTo = () => {
 const closeHowTo = () => {
   const menu = document.getElementById("howto-page")
   menu.style.top = "100%"
-  setTimeout(() => menu.style.visibility = "hidden", 1100);
+  makehiddens.push(setTimeout(() => menu.style.visibility = "hidden", 1100));
 }
 
 const expandModes = (mode) => {
