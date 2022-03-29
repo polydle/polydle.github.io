@@ -348,6 +348,9 @@ const setTime = () => {
 const addSection = () => {
   let gotone = false
   let word = ""
+  const grays = []
+  const greens = []
+  const yellows = []
   for (let i = 0; i < n; i++) {
     if (!!dones[i]) {
       continue
@@ -363,15 +366,21 @@ const addSection = () => {
       if (word.length < 5) {
         word += c
       }
+      // if (mode != "perfect") {
       const wedge = document.getElementById(`key-${c}-${i}`)
-      wedge.classList.add("gray")
+      //   wedge.classList.add("gray")
+      // }
+      grays.push(wedge)
       // letter.classList.add("gray")
       if (c === words[i][j]) {
         d[c] += 1
         count += 1
         letter.classList.add("green")
+        // if (mode != "perfect") {
         const wedge = document.getElementById(`key-${c}-${i}`)
-        wedge.classList.add("green")
+        //   wedge.classList.add("green")
+        // }
+        greens.push(wedge)
       }
     }
     if (count === 5) {
@@ -384,13 +393,26 @@ const addSection = () => {
         if (!letter.classList.contains("green") && letter.innerHTML.toLowerCase() === c && wordds[i][c] > d[c]) {
           d[c] += 1
           letter.classList.add("yellow")
+          // if (mode != "perfect") {
           const wedge = document.getElementById(`key-${c}-${i}`)
-          wedge.classList.add("yellow")
+          //   wedge.classList.add("yellow")
+          // }
+          yellows.push(wedge)
         }
       }
     }
   }
-  if (!gotone && mode === "perfect") {
+  if (mode != "perfect" || gotone) {
+    for (let wedge of grays) {
+      wedge.classList.add("gray")
+    }
+    for (let wedge of greens) {
+      wedge.classList.add("green")
+    }
+    for (let wedge of yellows) {
+      wedge.classList.add("yellow")
+    }
+  } else {
     // console.log(word)
     if (uniques.has(word)) {
       for (let i = 0; i < n; i++) {
@@ -556,6 +578,7 @@ const presskey = (c,save=true,perfectstart=true) => {
   }
 }
 
+const nums = "0️⃣&1️⃣&2️⃣&3️⃣&4️⃣&5️⃣&6️⃣&7️⃣&8️⃣&9️⃣&🔟".split("&")
 const copy = () => {
   const aux = document.createElement("textarea");
   let s = `${rand ? "Random" : "Daily"} ${mode === "speed" ? "Speed " : mode === "perfect" ? "Perfect " : ""}${n}-dle${rand ? "" : ` #${pad(day.toString(),4)}`}\n`
@@ -563,10 +586,13 @@ const copy = () => {
     s += document.getElementById("timer").innerHTML + "\n"
   }
   if (mode === "perfect") {
-    s += `${perfectdeath == -1 ? n : perfectdeath-2-perfectobscure}/${n} - ${3-perfectlives}❌ : ${dones.map(i => perfectdeath != -1 && i > perfectdeath - perfectobscure ? "X" : i).join("&")}\n`
+    s += `${perfectdeath == -1 ? n : perfectdeath-2-perfectobscure}/${n} - ${3-perfectlives}❌ : `
+    const canemoji = dones.every(i => (perfectdeath != -1 && i > perfectdeath - perfectobscure) || i <= 10)
+    s += `${dones.map(i => perfectdeath != -1 && i > perfectdeath - perfectobscure ? (canemoji ? "❎" : "X") : (canemoji ? nums[i] : i)).join(canemoji ? "" : "&")}\n`
     s += document.getElementById("timer").innerHTML + "\n"
   } else {
-    s += `${Math.max(...dones)} : ${dones.join("&")}\n`
+    const canemoji = dones.every(i => i <= 10)
+    s += `${Math.max(...dones)} : ${canemoji ? dones.map(i => nums[i]).join("") : dones.join("&")}\n`
   }
   s += `polydle.github.io/?${mode}/${rand ? "random" : "daily"}/${n}${rand ? "/"+day : ""}`
   if (mode !== "speed" && mode !== "perfect") {
