@@ -763,8 +763,8 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     setNonN()
   }
-  // if (!window.localStorage.getItem("seen-howto")) {
-  //   window.localStorage.setItem("seen-howto","true")
-  setTimeout(openHowTo, 0)
-  // }
+  if (!window.localStorage.getItem("seen-howto")) {
+    window.localStorage.setItem("seen-howto","true")
+    setTimeout(openHowTo, delay)
+  }
 })
