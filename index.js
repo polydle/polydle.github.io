@@ -731,6 +731,7 @@ const expandModes = (mode) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  let delay = 300
   if (checkMobile()) {
     document.documentElement.style.setProperty('--box-width', 'calc(calc(98vw / 10) - 2px)');
     document.documentElement.style.setProperty('--box-width2', 'calc(calc(98vw / 11.5) - 2px)');
@@ -745,6 +746,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const menu = document.getElementById("menu")
     menu.style.width = "90vw"
     menu.style.height = "90vh"
+    delay = 1000
     // document.getElementById("ex").style.left = "calc(calc(100% - calc(var(--box-width) * 0.8)) + 5vw)"
   // } else {
   //   document.getElementById("menu").style.minWidth = "600px"
@@ -761,8 +763,8 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     setNonN()
   }
-  if (!window.localStorage.getItem("seen-howto")) {
-    window.localStorage.setItem("seen-howto","true")
-    openHowTo()
-  }
+  // if (!window.localStorage.getItem("seen-howto")) {
+  //   window.localStorage.setItem("seen-howto","true")
+  setTimeout(openHowTo, 0)
+  // }
 })
