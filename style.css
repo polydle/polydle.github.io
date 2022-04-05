@@ -592,6 +592,10 @@ b.gr {
   color: var(--gray);
 }
 
+b.r {
+  color: #ff3333;
+}
+
 #ex {
   display: flex;
   touch-action: manipulation;

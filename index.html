@@ -193,12 +193,77 @@
         </div>
         <div class="howto-subtitle">Perfect</div>
         <div class="howto-text">
-          In perfect mode, you're trying to play 100% perfectly. You start with 3 lives and every time you miss a word,
+          <!-- In perfect mode, you're trying to play 100% perfectly. You start with 3 lives and every time you miss a word,
           you lose a life. Lost lives appear as red lines and you don't get clues for those guesses. Thankfully, the game
           gives you the first word. And on each subsequent guess, it guarantees that there is at least one column
           where there is a unique non-obscure word that satisfies all the clues so far. Don't worry though-- the game will
           indicate if a word is considered obscure (and thus not included in the uniqueness determination) by turning the
-          text gray before you submit. And if you submit an obscure word, you won't lose a life for it either.
+          text gray before you submit. And if you submit an obscure word, you won't lose a life for it either. -->
+          Perfect mode is a little more complicated. The idea is you are attempting to play 100% perfectly.
+          To make this possible, the game will start with the first word already inputted-- you simply have to hit
+          Enter to begin the game. From then on, it will then guarantee that there is always (at least) 1 column available where
+          the clues so far make the word for that column unique&#42;. Your goal for each guess is to find a column
+          where this is true and then identify the unique word. Getting this word correct will then give you additional
+          clues in other columns until eventually every column can be uniquely determined.
+        </div>
+        <div class="howto-text">
+          After 3 incorrect guesses, you lose the game. If you make an incorrect guess, the line
+          will turn <b class="r">Red</b> and you will not receive any new clues:
+        </div>
+        <div class="section howto-section">
+          <div class="word howto-word">
+            <div class="letter howto-box howto-letter death">D</div>
+            <div class="letter howto-box death">O</div>
+            <div class="letter howto-box death">N</div>
+            <div class="letter howto-box death">U</div>
+            <div class="letter howto-box death">T</div>
+          </div>
+          <div class="word">
+            <div class="letter howto-box death">D</div>
+            <div class="letter howto-box death">O</div>
+            <div class="letter howto-box death">N</div>
+            <div class="letter howto-box death">U</div>
+            <div class="letter howto-box death">T</div>
+          </div>
+        </div>
+        <div class="howto-text">
+          Thus, the only additional information this gives you is that the word you guessed is not the solution to any
+          of the remaining columns. There are two ways you can make an incorrect guess. One way is that
+          you simply guess a word that does not fit the clues of any column. The other way (and the one that's
+          harder to avoid) is that you picked the wrong column-- that is, you picked a column where there was more than
+          one possible solution to the clues so far. In such a case, this just means there's a different column where
+          the solution is indeed unique and you should perhaps try that one instead.
+        </div>
+        <div class="howto-text">
+          If you do end up losing, the game will play out the rest of the game in one of the correct orders-- that is,
+          it will show you the remaining words in an order such that each guess was uniquely determined by the clues prior.
+          There may be other possible orders, but the game will just pick one of them to show.
+        </div>
+        <div class="howto-text addmargin">
+          &#42;The uniqueness determination isn't quite exhaustive. In order to keep the possible sets of words from
+          being too restrictive, a slightly smaller dictionary consisting of "non-obscure" words is used to determine
+          uniqueness. That is, each solution is only guaranteed to be a unique <i>non-obscure</i> word given the clues so far.
+          Because of this, there sometimes may be other obscure words that satisfy all the clues, but that are not the correct
+          solution to that column. To account for this, the game will indicate to you that a word is considered obscure by
+          turning the text color <b class="gr">Gray</b> before you submit. And if you do happen to submit an obscure word,
+          you do not get penalized for it (nor do you get additional clues though), and the line will just turn
+          <b class="gr">Gray</b>:
+        </div>
+        <div class="section howto-section">
+          <div class="word howto-word">
+            <div class="letter howto-box howto-letter gray">L</div>
+            <div class="letter howto-box gray">E</div>
+            <div class="letter howto-box gray">M</div>
+            <div class="letter howto-box gray">O</div>
+            <div class="letter howto-box gray">N</div>
+          </div>
+          <div class="word">
+            <div class="letter howto-box gray">L</div>
+            <div class="letter howto-box gray">E</div>
+            <div class="letter howto-box gray">M</div>
+            <div class="letter howto-box gray">O</div>
+            <div class="letter howto-box gray">N</div>
+          </div>
         </div>
         <div class="howto-subtitle">More modes coming soon!</div>
         <div class="howto-title">Contact</div>
