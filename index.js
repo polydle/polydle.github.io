@@ -11,7 +11,8 @@ const search = window.location.search
 const possrand = () => Math.floor(Math.random()*1000000000)
 let n = parseInt(search.substring(1))
 const date = new Date()
-let day = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000) - (date.getFullYear()-2022)*365 - 42
+// let day = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000) - (date.getFullYear()-2022)*365 - 42
+let day = Math.floor((date - new Date(2022, 0, 0)) / 86400000) - 42
 if (search.length && !isNaN(search.substring(1))) {
   if (n > 0 && n < 2316) {
     window.location.search = "?classic/daily/"+n
